@@ -6,7 +6,6 @@ All of the models are stored in this module
 
 import logging
 from flask_sqlalchemy import SQLAlchemy
-from enum import Enum
 
 logger = logging.getLogger("flask.app")
 
@@ -18,17 +17,9 @@ class DataValidationError(Exception):
     """Used for an data validation errors when deserializing"""
 
 
-class ItemCondition(Enum):
-    """Enumeration of valid Inventory item conditions"""
-
-    NEW = "new"
-    OPEN_BOX = "open_box"
-    USED = "used"
-
-
-class Inventory(db.Model):
+class YourResourceModel(db.Model):
     """
-    Class that represents a Inventory
+    Class that represents a YourResourceModel
     """
 
     ##################################################
@@ -38,25 +29,6 @@ class Inventory(db.Model):
     name = db.Column(db.String(63))
 
     # Todo: Place the rest of your schema here...
-
-    product_id = db.Column(db.String(64), nullable=False)
-
-    quantity = db.Column(db.Integer, nullable=False, default=0)
-    restock_level = db.Column(db.Integer, nullable=False, default=0)
-    condition = db.Column(
-        db.Enum(ItemCondition), nullable=False, server_default=ItemCondition.NEW.name
-    )
-
-    # database auditing fields
-
-    created_at = db.Column(db.DateTime, default=db.func.now(), nullable=False)
-    last_updated = db.Column(
-        db.DateTime, default=db.func.now(), onupdate=db.func.now(), nullable=False
-    )
-
-    ##################################################
-    # INSTANCE METHODS
-    ##################################################
 
     def __repr__(self):
         return f"<YourResourceModel {self.name} id=[{self.id}]>"
