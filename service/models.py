@@ -30,6 +30,8 @@ class YourResourceModel(db.Model):
 
     # Todo: Place the rest of your schema here...
 
+    # Inventory database model
+
     def __repr__(self):
         return f"<YourResourceModel {self.name} id=[{self.id}]>"
 
